@@ -238,7 +238,7 @@ const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const $=id=>document.getElementById(id),N=i=>String(i+1);
 
 /* mosaïque */
-$('bg').innerHTML=D.map(([f])=>`<div><img src="img/${f}.jpg" alt=""></div>`).join('');
+$('bg').innerHTML=D.map(([f])=>`<div><img src="${f}.jpg" alt=""></div>`).join('');
 
 /* logo géant qui rétrécit */
 const wm=$('wm'),band=$('band');let nat=1,topStart=0,sMin=.2;
@@ -261,7 +261,7 @@ document.fonts&&document.fonts.ready.then(fit);fit();
 
 /* visionneuse */
 const dlg=$('dlg'),big=$('big'),cap=$('cap');let cur=0;
-function show(i){cur=(i+D.length)%D.length;big.src='img/'+D[cur][0]+'.jpg';big.alt=D[cur][1];cap.innerHTML=`<b>n°${N(cur)}</b>${D[cur][1]}`;if(!dlg.open)dlg.showModal()}
+function show(i){cur=(i+D.length)%D.length;big.src=''+D[cur][0]+'.jpg';big.alt=D[cur][1];cap.innerHTML=`<b>n°${N(cur)}</b>${D[cur][1]}`;if(!dlg.open)dlg.showModal()}
 dlg.querySelector('.x').onclick=()=>dlg.close();dlg.querySelector('.p').onclick=()=>show(cur-1);dlg.querySelector('.n').onclick=()=>show(cur+1);
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
 dlg.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
@@ -271,11 +271,11 @@ $('bg').addEventListener('click',e=>{const c=e.target.closest('.bg > div');if(c)
 
 /* liste avec image au curseur */
 const list=$('list'),pv=$('pv'),pvi=pv.querySelector('img');
-D.forEach(([f,t],i)=>{const li=document.createElement('li');li.innerHTML=`<button type="button" data-i="${i}"><span class="n">n°${N(i)}</span><span class="t">${t}</span><img class="th" src="img/${f}.jpg" alt=""></button>`;list.appendChild(li)});
+D.forEach(([f,t],i)=>{const li=document.createElement('li');li.innerHTML=`<button type="button" data-i="${i}"><span class="n">n°${N(i)}</span><span class="t">${t}</span><img class="th" src="${f}.jpg" alt=""></button>`;list.appendChild(li)});
 let tx=0,ty=0,x=0,y=0,rot=0,run=false;
 function loop(){const dx=tx-x;x+=dx*.16;y+=(ty-y)*.16;rot+=(Math.max(-12,Math.min(12,dx*.16))-rot)*.15;pv.style.transform=`translate(${x}px,${y}px) translate(-50%,-50%) rotate(${rot}deg) scale(${pv.classList.contains('on')?1:.85})`;if(run)requestAnimationFrame(loop)}
 list.addEventListener('pointermove',e=>{tx=e.clientX+130;ty=e.clientY});
-list.addEventListener('pointerover',e=>{const b=e.target.closest('button');if(!b||RM)return;pvi.src='img/'+D[b.dataset.i][0]+'.jpg';if(!pv.classList.contains('on')){x=tx;y=ty}pv.classList.add('on');if(!run){run=true;loop()}});
+list.addEventListener('pointerover',e=>{const b=e.target.closest('button');if(!b||RM)return;pvi.src=''+D[b.dataset.i][0]+'.jpg';if(!pv.classList.contains('on')){x=tx;y=ty}pv.classList.add('on');if(!run){run=true;loop()}});
 list.addEventListener('pointerleave',()=>{pv.classList.remove('on');setTimeout(()=>{if(!pv.classList.contains('on'))run=false},300)});
 list.addEventListener('click',e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)});
 
@@ -304,7 +304,7 @@ function dropIn(){const bg=$('bg');if(RM){bg.classList.remove('pre');return}
   cells.forEach((c,k)=>setTimeout(()=>{c.firstChild.style.opacity=1},k*230));
 }
 function spawn(){if(!rainOn||document.hidden)return;const rain=$('rain');if(scrollY>innerHeight*3.2||rain.children.length>6)return;
-  const di=Math.floor(Math.random()*D.length),f=D[di][0],im=new Image();im.src='img/'+f+'.jpg';im.alt='';im.dataset.i=di;im.draggable=false;
+  const di=Math.floor(Math.random()*D.length),f=D[di][0],im=new Image();im.src=''+f+'.jpg';im.alt='';im.dataset.i=di;im.draggable=false;
   const w=Math.round(90+Math.random()*80);im.style.width=w+'px';im.style.left=(4+Math.random()*88)+'vw';
   const r=(Math.random()*30-15).toFixed(1),dur=11500+Math.random()*5500;
   rain.appendChild(im);
