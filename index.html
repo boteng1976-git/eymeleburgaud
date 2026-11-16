@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eymèle Burgaud : créatrice de mode</title>
+<meta name="description" content="Eymèle Burgaud conçoit le vêtement comme un deuxième corps : une coupe d'épure. Pièces, parcours et contact.">
+<meta name="theme-color" content="#fffbf3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fffbf3;--ink:#0b0b0b;--gut:clamp(16px,2.2vw,32px);--sans:'Outfit',system-ui,sans-serif;--serif:'Instrument Serif','Times New Roman',serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font:400 17px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:8px 14px;z-index:500}.skip:focus{left:8px}
+i,em{font-family:var(--serif);font-style:italic;font-weight:400}
+
+/* chargement */
+#load{position:fixed;inset:0;z-index:400;background:var(--cream);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--gut);transition:opacity .6s .15s,visibility .6s .15s}
+#load.done{opacity:0;visibility:hidden}
+#load span.s{font:italic 400 clamp(16px,1.6vw,22px) var(--serif)}
+#load span.s:last-child{text-align:right}
+#load .m{text-align:center;font:800 clamp(34px,7vw,110px)/1 var(--sans);letter-spacing:-.04em}
+#load .m i{font-weight:400;font-size:1.08em;letter-spacing:-.02em}
+#load .c{display:block;font:italic 400 clamp(14px,1.3vw,18px) var(--serif);letter-spacing:0;margin-top:6px}
+@media (prefers-reduced-motion:reduce){#load{display:none}}
+
+/* en-tête fixe : logo géant -> petit */
+#wm{position:fixed;left:var(--gut);top:0;z-index:100;transform-origin:0 0;white-space:nowrap;mix-blend-mode:difference;color:var(--cream);font:800 100px/.9 var(--sans);letter-spacing:-.05em;will-change:transform}
+#wm i{font-weight:400;letter-spacing:-.03em;font-size:1.1em}
+.top{position:fixed;right:var(--gut);top:14px;z-index:100;mix-blend-mode:difference;color:var(--cream);text-align:right;font:500 16px/1.4 var(--sans)}
+.top a{display:block}
+.top a.sm{font-size:13px;font-weight:400;margin-top:10px;opacity:.9}
+.top a:hover{opacity:.6}
+
+/* fond mosaïque fixe */
+.bg{position:fixed;inset:0;z-index:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,1fr);background:#111}
+.bg div{overflow:hidden;cursor:zoom-in}
+.bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.5) contrast(.95);transition:filter .6s,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.bg div:hover img{filter:none;transform:scale(1.04)}
+@media (max-width:760px){.bg{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(6,1fr)}}
+
+/* pluie de photos */
+.bg.pre img{opacity:0}
+.bg.drop div{overflow:visible}
+#rain{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+#rain img{position:absolute;top:0;display:block;height:auto;box-shadow:0 18px 40px rgba(0,0,0,.45);will-change:transform;pointer-events:auto;cursor:zoom-in;transition:box-shadow .3s,filter .3s}
+#rain img:hover{box-shadow:0 24px 54px rgba(0,0,0,.6);filter:brightness(1.08)}
+.rainbtn{position:fixed;left:var(--gut);bottom:16px;z-index:100;mix-blend-mode:difference;color:var(--cream);background:none;border:0;font:500 13px var(--sans);cursor:pointer;padding:8px 0}
+.rainbtn:hover{opacity:.6}
+@media (prefers-reduced-motion:reduce){#rain,.rainbtn{display:none}}
+
+/* scène : bande crème + cartes qui glissent */
+.stage{position:relative;z-index:1;pointer-events:none}
+.band{background:var(--cream);height:var(--band,60vh);display:flex;align-items:flex-end;padding:0 var(--gut) 18px;pointer-events:auto}
+.meta{width:100%;display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:16px;align-items:baseline;font-size:15px}
+.meta i{font-size:21px}
+.meta b{font-weight:700;font-size:18px}
+.meta span:last-child{text-align:right}
+.gap{height:46vh}
+.card{pointer-events:auto;background:var(--cream);width:min(400px,calc(100vw - 2*var(--gut)));margin-left:clamp(var(--gut),21vw,420px);padding:44px 34px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:30px;min-height:min(480px,70vh);justify-content:space-between}
+.card p{font:italic 400 clamp(21px,2vw,28px)/1.22 var(--serif)}
+.card b{font:700 15px var(--sans)}
+.star{width:36px;height:36px;display:block}
+.big{margin-left:clamp(var(--gut),50vw,720px);margin-right:var(--gut);color:var(--cream);max-width:620px}
+.big small{display:block;font:500 14px var(--sans);margin-bottom:18px}
+.big p{font:italic 400 clamp(30px,3.8vw,56px)/1.08 var(--serif)}
+@media (max-width:760px){.meta{grid-template-columns:1fr 1fr}.meta span:nth-child(3){display:none}.card{margin-left:var(--gut)}.big{margin-left:var(--gut)}.gap{height:34vh}}
+
+/* sections crèmes */
+.sheet{position:relative;z-index:2;background:var(--cream)}
+.sec{padding:clamp(80px,12vw,180px) var(--gut)}
+.center{text-align:center}
+.center .star{margin:0 auto 52px}
+.center small{display:block;font:700 15px var(--sans);margin-bottom:22px}
+.lines{font:italic 400 clamp(32px,4.6vw,72px)/1.12 var(--serif);letter-spacing:-.01em}
+.lines s{text-decoration:none;padding:0 .2em}
+
+.row3{display:grid;grid-template-columns:90px 1fr 1fr;gap:clamp(16px,3vw,48px);padding:clamp(40px,6vw,80px) var(--gut);border-top:1px solid var(--ink);align-items:start}
+.row3 .n{font:500 15px var(--sans)}
+.row3 h3{font:italic 400 clamp(36px,5vw,76px)/1 var(--serif);letter-spacing:-.015em}
+.row3 p{font-size:clamp(16px,1.3vw,19px);max-width:46ch;margin-bottom:22px}
+.row3 .tags{display:flex;gap:10px 28px;flex-wrap:wrap;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+@media (max-width:760px){.row3{grid-template-columns:44px 1fr}.row3>div:last-child{grid-column:2}}
+
+/* liste des pièces */
+.pieces{padding:clamp(80px,12vw,180px) var(--gut)}
+.pieces h2{font:italic 400 clamp(44px,8vw,130px)/.95 var(--serif);letter-spacing:-.02em;margin-bottom:clamp(32px,5vw,72px)}
+.pieces h2 b{font:700 clamp(14px,1.2vw,17px) var(--sans);letter-spacing:0;vertical-align:top;margin-left:14px}
+.pieces ol{list-style:none;border-top:1px solid var(--ink)}
+.pieces button{width:100%;display:grid;grid-template-columns:90px 1fr auto;gap:20px;align-items:baseline;background:none;border:0;border-bottom:1px solid #d9d4c8;padding:clamp(10px,1.4vw,18px) 0;text-align:left;cursor:pointer;transition:padding .45s cubic-bezier(.2,.7,.2,1),opacity .3s}
+.pieces button:hover,.pieces button:focus-visible{padding-left:clamp(10px,1.8vw,28px)}
+.pieces ol:hover button:not(:hover){opacity:.35}
+.pieces .n{font:500 14px var(--sans)}
+.pieces .t{font:italic 400 clamp(26px,4vw,62px)/1.05 var(--serif);letter-spacing:-.01em}
+.pieces .th{display:none;width:60px;height:80px;object-fit:cover}
+.pv{position:fixed;left:0;top:0;width:clamp(180px,17vw,250px);pointer-events:none;z-index:150;opacity:0;transition:opacity .25s;will-change:transform}
+.pv.on{opacity:1}.pv img{width:100%;height:auto;display:block;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+@media (hover:none),(max-width:760px){.pieces button{grid-template-columns:40px 1fr 60px}.pieces .th{display:block}.pv{display:none}.pieces .t{font-size:clamp(22px,6.4vw,34px)}}
+
+/* à propos */
+.about{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,3vw,48px);padding:clamp(80px,12vw,180px) var(--gut);border-top:1px solid var(--ink)}
+.about .l{grid-column:1/6}
+.about .l h2{font:italic 400 clamp(40px,6vw,96px)/.98 var(--serif);letter-spacing:-.02em;margin-bottom:28px}
+.about .l p{max-width:40ch}
+.about .l a{border-bottom:1px solid var(--ink)}
+.about .r{grid-column:7/13;list-style:none}
+.about .r li{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #d9d4c8}
+.about .r li:first-child{border-top:1px solid var(--ink)}
+.about .r b{font:700 15px var(--sans)}
+.about .r span{font:italic 400 clamp(20px,1.8vw,26px)/1.2 var(--serif)}
+@media (max-width:900px){.about .l,.about .r{grid-column:1/-1}.about .r li{grid-template-columns:1fr;gap:4px}}
+.regard{padding:0 var(--gut) clamp(80px,12vw,180px)}
+.regard blockquote{max-width:1000px;margin-left:auto;font:italic 400 clamp(28px,3.6vw,52px)/1.14 var(--serif);letter-spacing:-.01em}
+.regard blockquote p+p{margin-top:26px}
+.regard small{display:block;font:700 15px var(--sans);margin-bottom:22px;max-width:1000px;margin-left:auto}
+
+/* contact */
+.contact{padding:clamp(80px,12vw,160px) var(--gut) 60px;border-top:1px solid var(--ink);display:grid;grid-template-columns:repeat(12,1fr);gap:32px}
+.contact h2{grid-column:1/7;font:italic 400 clamp(48px,8vw,130px)/.95 var(--serif);letter-spacing:-.02em}
+.contact form{grid-column:8/13;display:grid;gap:20px;align-content:start}
+.contact label{display:grid;gap:6px;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.contact input,.contact textarea{font:italic 400 24px var(--serif);letter-spacing:0;text-transform:none;background:transparent;border:0;border-bottom:1px solid var(--ink);padding:6px 0;color:var(--ink);border-radius:0}
+.contact textarea{min-height:90px;resize:vertical}
+.contact input:focus,.contact textarea:focus{outline:none;border-bottom-width:2px}
+.btn{justify-self:start;background:var(--ink);color:var(--cream);border:1px solid var(--ink);height:52px;padding:0 32px;border-radius:999px;font:700 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,transform .12s}
+.btn:hover{background:transparent;color:var(--ink)}.btn:active{transform:scale(.96)}
+#ok{font-size:14px}
+@media (max-width:900px){.contact h2,.contact form{grid-column:1/-1}}
+footer{padding:24px var(--gut) 28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;border-top:1px solid var(--ink)}
+
+/* visionneuse */
+dialog{border:1px solid #cfc9bb;background:var(--cream);color:var(--ink);width:min(1180px,94vw);height:min(92vh,980px);max-width:none;max-height:none;margin:auto;padding:0;overflow:hidden}
+dialog::backdrop{background:rgba(11,11,11,.72);backdrop-filter:blur(3px)}
+.v{height:100%;display:grid;grid-template-rows:1fr auto;gap:14px;padding:56px 76px 22px}
+.v img{width:100%;height:100%;min-height:0;object-fit:contain;animation:pop .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes pop{from{opacity:0;transform:scale(.96)}}
+.v p{font:italic 400 26px var(--serif);text-align:center}.v p b{font:700 13px var(--sans);font-style:normal;margin-right:12px}
+.v button{position:absolute;background:none;border:0;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:16px;cursor:pointer}
+.v .x{top:6px;right:8px}.v .p{left:6px;top:50%}.v .n{right:6px;top:50%}.v button:hover{opacity:.5}
+@media (max-width:760px){dialog{width:100vw;height:92vh}.v{padding:52px 12px 16px}.v .p,.v .n{top:auto;bottom:8px}.v p{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body id="top">
+<a class="skip" href="#pieces">Aller au contenu</a>
+
+<div id="load" role="status" aria-label="Chargement">
+ <span class="s">Chargement</span>
+ <div class="m">eymèle <i>burgaud</i><span class="c" id="pct">[0%]</span></div>
+ <span class="s">en cours</span>
+</div>
+
+<a id="wm" href="#top" aria-label="Eymèle Burgaud, retour en haut">eymèle<i>burgaud</i></a>
+<div class="top"><a href="#contact">Contact</a><a class="sm" href="http://www.eymele-burgaud.com/home.aspx" target="_blank" rel="noopener">Son site ↗</a></div>
+
+<div class="bg pre" id="bg" aria-hidden="true"></div>
+<div id="rain" aria-hidden="true"></div>
+<button class="rainbtn" id="rainbtn" type="button" aria-pressed="true">Pluie · on</button>
+
+<main>
+<section class="stage" id="stage">
+ <div class="band" id="band">
+  <div class="meta"><i>Le vêtement, un deuxième corps</i><b>Eymèle</b><i>Créatrice de mode</i><span>ESMOD · 2003</span></div>
+ </div>
+ <div class="gap"></div>
+ <div class="card">
+  <svg class="star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M20 1v38M1 20h38"/><rect x="14" y="14" width="12" height="12"/><path d="M14 14l12 12M26 14L14 26"/></svg>
+  <p>Eymèle Burgaud est diplômée d'ESMOD en 2003. Elle travaille une saison au sein du studio de John Galliano, puis présente sa première collection pour le printemps été 2005.</p>
+  <b>Créatrice de mode</b>
+ </div>
+ <div class="gap"></div>
+ <div class="big"><small>Démarche</small><p>Inspirée par l'architecture corporelle, littérale ou détournée, elle se concentre sur la coupe et conçoit le vêtement comme un deuxième corps, une seconde enveloppe charnelle.</p></div>
+ <div class="gap"></div>
+</section>
+
+<div class="sheet">
+ <section class="sec center">
+  <svg class="star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M20 1v38M1 20h38"/><rect x="14" y="14" width="12" height="12"/><path d="M14 14l12 12M26 14L14 26"/></svg>
+  <small>Trois gestes</small>
+  <p class="lines">La coupe <s>—</s> L'épure<br>Les détails <s>—</s> Le deuxième corps</p>
+ </section>
+
+ <section aria-label="Gestes">
+  <div class="row3"><span class="n">01</span><h3>La coupe</h3><div><p>Une approche simple, mais pas simpliste, qui va à l'essentiel. Tout part de la coupe.</p><div class="tags"><span>Simplicité</span><span>Essentiel</span><span>Coupe</span></div></div></div>
+  <div class="row3"><span class="n">02</span><h3>L'épure</h3><div><p>Un travail graphique, minimaliste, qui ne renonce pas à la féminité : une première jupe d'inspiration années 20/30.</p><div class="tags"><span>Graphique</span><span>Minimalisme</span><span>Féminité</span></div></div></div>
+  <div class="row3"><span class="n">03</span><h3>Les détails</h3><div><p>Des plis, des ceintures, des cols : des détails séduisants qui trouvent leur place dans l'épure.</p><div class="tags"><span>Plis</span><span>Ceintures</span><span>Cols</span></div></div></div>
+ </section>
+
+ <section class="pieces" id="pieces">
+  <h2>Sélection de pièces<b>18</b></h2>
+  <ol id="list"></ol>
+ </section>
+
+ <section class="about" id="parcours">
+  <div class="l">
+   <h2>Parcours</h2>
+   <p>Après un premier défilé en octobre 2008, <a href="http://www.eymele-burgaud.com/home.aspx" target="_blank" rel="noopener">Eymèle Burgaud</a> obtient le Grand Prix de la Création de la Ville de Paris. En juin 2010, son travail est exposé à Shanghai dans le cadre de l'exposition universelle.</p>
+  </div>
+  <ul class="r">
+   <li><b>2003</b><span>Diplômée d'ESMOD</span></li>
+   <li><b>Une saison</b><span>Studio de John Galliano</span></li>
+   <li><b>Printemps été 2005</b><span>Première collection</span></li>
+   <li><b>Octobre 2008</b><span>Premier défilé, puis Grand Prix de la Création de la Ville de Paris</span></li>
+   <li><b>Juin 2010</b><span>Exposition universelle, Shanghai</span></li>
+  </ul>
+ </section>
+
+ <section class="regard"><small>Regard</small><blockquote>
+  <p>Une approche simple (mais pas simpliste) de la mode qui me convient et qui va pour l'ensemble à l'essentiel. Tout se ressent dans cette première jupe, d'inspiration années 20/30, graphique, minimaliste mais pas dénué de féminité.</p>
+  <p>Un travail d'épure qui laisse de la place à des détails séduisants, plis, ceintures, cols… une créatrice que je vais suivre de près.</p>
+ </blockquote></section>
+
+ <section class="contact" id="contact">
+  <h2>Un projet,<br>une pièce ?</h2>
+  <form id="f" action="#">
+   <label>Nom<input name="nom" type="text" autocomplete="name" required></label>
+   <label>Email<input name="email" type="email" autocomplete="email" required></label>
+   <label>Message<textarea name="msg"></textarea></label>
+   <button class="btn" type="submit">Envoyer</button>
+   <p id="ok" hidden>Le formulaire n'est pas encore relié à une adresse e-mail.</p>
+  </form>
+ </section>
+ <footer><span>Eymèle Burgaud</span><span>Photographies : références du créateur</span><a href="#top">Retour en haut ↑</a></footer>
+</div>
+</main>
+
+<div class="pv" id="pv" aria-hidden="true"><img alt=""></div>
+<dialog id="dlg" aria-label="Visionneuse"><div class="v"><img id="big" alt=""><p id="cap"></p><button class="x" aria-label="Fermer">Fermer</button><button class="p" aria-label="Précédente">←</button><button class="n" aria-label="Suivante">→</button></div></dialog>
+
+<script>
+const D=[['rose','Portrait rouge'],['veste','Veste blanche courte'],['cape','Cape à écailles'],['noir','Combinaison drapée'],['plisse','Manches plissées'],['pantalon','Pantalon à poche drapée'],['couverture','Manteau à col ample'],['blanche','Robe plongeante'],['buste','Rubans noirs'],['home','Robe rose brodée'],['extravaganza','Volants et escalier'],['portrait','Noir et blanc'],['gants','Gants noirs'],['corset','Ceintures en cuir'],['robes','Quatre silhouettes'],['foule','Podium'],['defile','Défilé en extérieur'],['chic','Crème bordé de rouge']];
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const $=id=>document.getElementById(id),N=i=>String(i+1);
+
+/* mosaïque */
+$('bg').innerHTML=D.map(([f])=>`<div><img src="img/${f}.jpg" alt=""></div>`).join('');
+
+/* logo géant qui rétrécit */
+const wm=$('wm'),band=$('band');let nat=1,topStart=0,sMin=.2;
+function fit(){const gut=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gut'))||16;
+  const w=innerWidth-2*(parseFloat(getComputedStyle(wm).left)||16);
+  wm.style.transform='none';wm.style.fontSize='100px';nat=wm.getBoundingClientRect().width;
+  const fs=100*w/nat;wm.style.fontSize=fs+'px';
+  const h=wm.getBoundingClientRect().height;topStart=Math.max(48,innerHeight*.05);
+  document.documentElement.style.setProperty('--band',Math.round(topStart+h+70)+'px');
+  sMin=Math.min(1,(innerWidth<600?130:170)/w);upd()}
+const ease=t=>1-Math.pow(1-t,3);
+function upd(){const p=Math.min(1,Math.max(0,scrollY/(innerHeight*.5))),e=ease(p);
+  const s=1-(1-sMin)*e,y=topStart+(14-topStart)*e;
+  wm.style.transform=`translateY(${y}px) scale(${s})`}
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',fit);
+document.fonts&&document.fonts.ready.then(fit);fit();
+
+/* chargement */
+(function(){const l=$('load'),c=$('pct');if(RM){$('bg').classList.remove('pre');return}let n=0;const t=setInterval(()=>{n=Math.min(100,n+Math.ceil(Math.random()*9));c.textContent='['+n+'%]';if(n>=100){clearInterval(t);setTimeout(()=>{l.classList.add('done');dropIn()},200);setTimeout(()=>l.remove(),1000)}},70)})();
+
+/* visionneuse */
+const dlg=$('dlg'),big=$('big'),cap=$('cap');let cur=0;
+function show(i){cur=(i+D.length)%D.length;big.src='img/'+D[cur][0]+'.jpg';big.alt=D[cur][1];cap.innerHTML=`<b>n°${N(cur)}</b>${D[cur][1]}`;if(!dlg.open)dlg.showModal()}
+dlg.querySelector('.x').onclick=()=>dlg.close();dlg.querySelector('.p').onclick=()=>show(cur-1);dlg.querySelector('.n').onclick=()=>show(cur+1);
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+dlg.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+
+/* clic sur la mosaïque */
+$('bg').addEventListener('click',e=>{const c=e.target.closest('.bg > div');if(c)show([...$('bg').children].indexOf(c))});
+
+/* liste avec image au curseur */
+const list=$('list'),pv=$('pv'),pvi=pv.querySelector('img');
+D.forEach(([f,t],i)=>{const li=document.createElement('li');li.innerHTML=`<button type="button" data-i="${i}"><span class="n">n°${N(i)}</span><span class="t">${t}</span><img class="th" src="img/${f}.jpg" alt=""></button>`;list.appendChild(li)});
+let tx=0,ty=0,x=0,y=0,rot=0,run=false;
+function loop(){const dx=tx-x;x+=dx*.16;y+=(ty-y)*.16;rot+=(Math.max(-12,Math.min(12,dx*.16))-rot)*.15;pv.style.transform=`translate(${x}px,${y}px) translate(-50%,-50%) rotate(${rot}deg) scale(${pv.classList.contains('on')?1:.85})`;if(run)requestAnimationFrame(loop)}
+list.addEventListener('pointermove',e=>{tx=e.clientX+130;ty=e.clientY});
+list.addEventListener('pointerover',e=>{const b=e.target.closest('button');if(!b||RM)return;pvi.src='img/'+D[b.dataset.i][0]+'.jpg';if(!pv.classList.contains('on')){x=tx;y=ty}pv.classList.add('on');if(!run){run=true;loop()}});
+list.addEventListener('pointerleave',()=>{pv.classList.remove('on');setTimeout(()=>{if(!pv.classList.contains('on'))run=false},300)});
+list.addEventListener('click',e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)});
+
+
+/* les photos tombent une à une dans la mosaïque, puis il pleut doucement */
+let rainOn=true,rainT=null;
+function dropIn(){const bg=$('bg');if(RM){bg.classList.remove('pre');return}
+  bg.classList.add('drop');
+  const cells=[...bg.children].sort(()=>Math.random()-.5);let done=0;
+  cells.forEach((c,k)=>{const im=c.firstChild,r=(Math.random()*18-9).toFixed(1);
+    c.style.position='relative';
+    const a=im.animate([
+      {opacity:1,transform:`translateY(-125vh) rotate(${r}deg)`,offset:0,easing:'cubic-bezier(.55,0,1,.5)'},
+      {opacity:1,transform:'translateY(0) rotate(0deg)',offset:.68,easing:'ease-out'},
+      {opacity:1,transform:'translateY(-4%) rotate(0deg)',offset:.8,easing:'ease-in'},
+      {opacity:1,transform:'translateY(0)',offset:.9,easing:'ease-out'},
+      {opacity:1,transform:'translateY(-1%)',offset:.95,easing:'ease-in'},
+      {opacity:1,transform:'translateY(0)',offset:1}],
+      {duration:1300,delay:k*230,fill:'backwards'});
+    c.style.zIndex=1;
+    a.onfinish=()=>{im.style.opacity='';c.style.zIndex='';if(++done===cells.length){bg.classList.remove('drop');startRain()}};
+    setTimeout(()=>{im.style.opacity=1;c.style.zIndex=5},k*230);
+  });
+  bg.classList.remove('pre');
+  cells.forEach(c=>c.firstChild.style.opacity=0);
+  cells.forEach((c,k)=>setTimeout(()=>{c.firstChild.style.opacity=1},k*230));
+}
+function spawn(){if(!rainOn||document.hidden)return;const rain=$('rain');if(scrollY>innerHeight*3.2||rain.children.length>6)return;
+  const di=Math.floor(Math.random()*D.length),f=D[di][0],im=new Image();im.src='img/'+f+'.jpg';im.alt='';im.dataset.i=di;im.draggable=false;
+  const w=Math.round(90+Math.random()*80);im.style.width=w+'px';im.style.left=(4+Math.random()*88)+'vw';
+  const r=(Math.random()*30-15).toFixed(1),dur=11500+Math.random()*5500;
+  rain.appendChild(im);
+  const a=im.animate([{transform:`translateY(-60vh) rotate(${r}deg)`},{transform:`translateY(115vh) rotate(${-r}deg)`}],{duration:dur,easing:'cubic-bezier(.35,0,.9,.65)'});
+  a.onfinish=()=>im.remove();
+  im.addEventListener('pointerenter',()=>a.pause());im.addEventListener('pointerleave',()=>a.play());
+  im.addEventListener('click',()=>{a.play();show(+im.dataset.i)});}
+function startRain(){if(RM||rainT)return;spawn();rainT=setInterval(spawn,2000)}
+$('rainbtn').onclick=e=>{rainOn=!rainOn;e.currentTarget.setAttribute('aria-pressed',rainOn);e.currentTarget.textContent='Pluie · '+(rainOn?'on':'off')};
+
+$('f').addEventListener('submit',e=>{e.preventDefault();$('ok').hidden=false});
+</script>
+</body>
+</html>
